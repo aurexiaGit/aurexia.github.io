@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.js": "/aurexia.github.io/static/js/main.ecbc7dc0.chunk.js",
-    "main.js.map": "/aurexia.github.io/static/js/main.ecbc7dc0.chunk.js.map",
-    "runtime-main.js": "/aurexia.github.io/static/js/runtime-main.8ae49695.js",
-    "runtime-main.js.map": "/aurexia.github.io/static/js/runtime-main.8ae49695.js.map",
-    "static/css/2.a4865ec6.chunk.css": "/aurexia.github.io/static/css/2.a4865ec6.chunk.css",
-    "static/js/2.8e3b9baf.chunk.js": "/aurexia.github.io/static/js/2.8e3b9baf.chunk.js",
-    "static/js/2.8e3b9baf.chunk.js.map": "/aurexia.github.io/static/js/2.8e3b9baf.chunk.js.map",
-    "index.html": "/aurexia.github.io/index.html",
-    "precache-manifest.63d307259040e833cf4d590a4c1b320f.js": "/aurexia.github.io/precache-manifest.63d307259040e833cf4d590a4c1b320f.js",
-    "service-worker.js": "/aurexia.github.io/service-worker.js",
-    "static/css/2.a4865ec6.chunk.css.map": "/aurexia.github.io/static/css/2.a4865ec6.chunk.css.map",
-    "static/media/all.css": "/aurexia.github.io/static/media/fa-solid-900.c2801fb4.svg"
+    "main.js": "/new/static/js/main.7a8b6ca1.chunk.js",
+    "main.js.map": "/new/static/js/main.7a8b6ca1.chunk.js.map",
+    "runtime-main.js": "/new/static/js/runtime-main.030b62da.js",
+    "runtime-main.js.map": "/new/static/js/runtime-main.030b62da.js.map",
+    "static/css/2.60585fba.chunk.css": "/new/static/css/2.60585fba.chunk.css",
+    "static/js/2.8263bae9.chunk.js": "/new/static/js/2.8263bae9.chunk.js",
+    "static/js/2.8263bae9.chunk.js.map": "/new/static/js/2.8263bae9.chunk.js.map",
+    "index.html": "/new/index.html",
+    "precache-manifest.c9e7d94444fe01941dc01a3098c5f4b4.js": "/new/precache-manifest.c9e7d94444fe01941dc01a3098c5f4b4.js",
+    "service-worker.js": "/new/service-worker.js",
+    "static/css/2.60585fba.chunk.css.map": "/new/static/css/2.60585fba.chunk.css.map",
+    "static/media/all.css": "/new/static/media/fa-solid-900.c2801fb4.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.8ae49695.js",
-    "static/css/2.a4865ec6.chunk.css",
-    "static/js/2.8e3b9baf.chunk.js",
-    "static/js/main.ecbc7dc0.chunk.js"
+    "static/js/runtime-main.030b62da.js",
+    "static/css/2.60585fba.chunk.css",
+    "static/js/2.8263bae9.chunk.js",
+    "static/js/main.7a8b6ca1.chunk.js"
   ]
 }
