@@ -1,0 +1,25 @@
+{
+  "short_name": "Aurexia's App",
+  "name": "Aurexia's Finlab App",
+  "icons": [
+    {
+      "src": "img/aurexia_logo.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "img/Finlab.png",
+      "type": "image/png",
+      "sizes": "1920x1080"
+    },
+    {
+      "src":"img/logo AST.png",
+      "type":"image/png",
+      "sizes": "302x302"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
