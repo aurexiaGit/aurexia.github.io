@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/aurexia.github.io/precache-manifest.e0b14531baf075a560a90bab20684995.js"
+  "/aurexia.github.io/precache-manifest.63d307259040e833cf4d590a4c1b320f.js"
 );
 
 self.addEventListener('message', (event) => {

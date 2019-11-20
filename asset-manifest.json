@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.js": "/aurexia.github.io/static/js/main.70f5c1f9.chunk.js",
-    "main.js.map": "/aurexia.github.io/static/js/main.70f5c1f9.chunk.js.map",
+    "main.js": "/aurexia.github.io/static/js/main.ecbc7dc0.chunk.js",
+    "main.js.map": "/aurexia.github.io/static/js/main.ecbc7dc0.chunk.js.map",
     "runtime-main.js": "/aurexia.github.io/static/js/runtime-main.8ae49695.js",
     "runtime-main.js.map": "/aurexia.github.io/static/js/runtime-main.8ae49695.js.map",
     "static/css/2.a4865ec6.chunk.css": "/aurexia.github.io/static/css/2.a4865ec6.chunk.css",
     "static/js/2.8e3b9baf.chunk.js": "/aurexia.github.io/static/js/2.8e3b9baf.chunk.js",
     "static/js/2.8e3b9baf.chunk.js.map": "/aurexia.github.io/static/js/2.8e3b9baf.chunk.js.map",
     "index.html": "/aurexia.github.io/index.html",
-    "precache-manifest.e0b14531baf075a560a90bab20684995.js": "/aurexia.github.io/precache-manifest.e0b14531baf075a560a90bab20684995.js",
+    "precache-manifest.63d307259040e833cf4d590a4c1b320f.js": "/aurexia.github.io/precache-manifest.63d307259040e833cf4d590a4c1b320f.js",
     "service-worker.js": "/aurexia.github.io/service-worker.js",
     "static/css/2.a4865ec6.chunk.css.map": "/aurexia.github.io/static/css/2.a4865ec6.chunk.css.map",
     "static/media/all.css": "/aurexia.github.io/static/media/fa-solid-900.c2801fb4.svg"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.8ae49695.js",
     "static/css/2.a4865ec6.chunk.css",
     "static/js/2.8e3b9baf.chunk.js",
-    "static/js/main.70f5c1f9.chunk.js"
+    "static/js/main.ecbc7dc0.chunk.js"
   ]
 }
