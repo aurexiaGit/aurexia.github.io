@@ -16,6 +16,11 @@
       "src":"img/logo AST.png",
       "type":"image/png",
       "sizes": "147x147"
+    },
+    {
+      "src":"img/logo_AST.png",
+      "type":"image/png",
+      "sizes": "1201x1198"
     }
   ],
   "start_url": ".",
