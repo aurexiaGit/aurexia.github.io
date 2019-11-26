@@ -24,13 +24,22 @@
   <body id="page-top">
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root">
-      You need to have an internet connection
+      <div id="loading"></div>
     </div>
     <!-- Scroll to Top Button-->
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
   </a>
+  <script>
+    function hideLoader() {
+        $('#loading').hide();
+    }
 
+    $(window).ready(hideLoader);
+
+    // Strongly recommended: Hide loader after 20 seconds, even if the page hasn't finished loading
+    setTimeout(hideLoader, 20 * 1000);
+</script>
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

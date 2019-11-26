@@ -11,7 +11,7 @@ class Home extends Component{
                         <div className="col-lg-6 login-logo">
                             <Online>
                                 <div className="login-logo">
-                                    <img id="AST" className="center-block" src="../img/finlab blanc.png" alt="Aurexia Finlab"/>
+                                    <img id="AST" className="center-block" src="img/finlab blanc.png" alt="Aurexia Finlab"/>
                                 </div>
                             </Online>
                         </div>

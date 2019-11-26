@@ -10,7 +10,7 @@ function AdminPart(props){
                 </div>
         
                 <li className="nav-item">
-                <a className="nav-link" href="/astAdmin">
+                <a className="nav-link" href="/new/astAdmin">
                     <i className="fas fa-fw fa-users"></i>
                     <span>AST</span></a>
                 </li>
@@ -27,14 +27,14 @@ export default class NavBar extends React.Component {
   render() {
     return (
         <ul className={(this.props.isOpen)?"navbar-nav bg-gradient-primary sidebar sidebar-dark accordion":"navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled"} id="accordionSidebar">
-            <a className="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+            <a className="sidebar-brand d-flex align-items-center justify-content-center" href="/new">
                 <div className="sidebar-brand-icon">
-                    <img src="../img/Aurexia logo white.png" width="100%" alt="Aurexia Logo"/>
+                    <img src="img/Aurexia logo white.png" width="100%" alt="Aurexia Logo"/>
                 </div>
             </a>
             <hr className="sidebar-divider my-0"/>
             <li className="nav-item">
-                <a className="nav-link" href="/ast">
+                <a className="nav-link" href="/new/ast">
                     <i className="fas fa-fw fa-tachometer-alt"/>
                     <span>Dashboard</span>
                 </a>

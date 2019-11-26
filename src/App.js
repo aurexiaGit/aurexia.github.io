@@ -14,7 +14,7 @@ import { getUserDetails, getPhoto } from './GraphService';
 import { UserAgentApplication } from 'msal';
 import { Online } from "react-detect-offline";
 
-const Administrators = ["Soilhat MOHAMED","Amine BADRY"];
+const Administrators = ["Soilhat MOHAMED","Amine BADRY", "Samir FEDDI"];
 
 class App extends Component {
   constructor(props) {
@@ -161,13 +161,13 @@ class App extends Component {
                   <Router>
                     <Switch>
                       {this.state.user.name === "Administrator" &&
-                      <Route path="/astAdmin">
+                      <Route path="/new/astAdmin">
                         <Blockchain 
                           isAuthenticated={this.state.isAuthenticated}
                           user={this.state.user}
                           admin={true}/>
                       </Route>}
-                      <Route path="/ast">
+                      <Route path="/new/ast">
                         <Blockchain 
                           isAuthenticated={this.state.isAuthenticated}
                           user={this.state.user}
