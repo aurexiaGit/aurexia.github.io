@@ -10,9 +10,16 @@ function AdminPart(props){
                 </div>
         
                 <li className="nav-item">
-                <a className="nav-link" href="/new/astAdmin">
-                    <i className="fas fa-fw fa-users"></i>
-                    <span>AST</span></a>
+                    <a className="nav-link" href="/new/astAdmin">
+                        <i className="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Account</span>
+                    </a>
+                </li>
+                <li className="nav-item">
+                    <a className="nav-link" href="/new/astUsersAdmin">
+                        <i className="fas fa-fw fa-users"></i>
+                        <span>Users</span>
+                    </a>
                 </li>
             </div>
         )
@@ -36,7 +43,7 @@ export default class NavBar extends React.Component {
             <li className="nav-item">
                 <a className="nav-link" href="/new/ast">
                     <i className="fas fa-fw fa-tachometer-alt"/>
-                    <span>Dashboard</span>
+                    <span>Account</span>
                 </a>
             </li>
             <hr className="sidebar-divider"/>

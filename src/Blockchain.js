@@ -2,6 +2,11 @@ import React, {Component} from 'react';
 import abi from './abi';
 import { Line, Doughnut } from 'react-chartjs-2';
 import Select from 'react-select';
+import ReactTable from 'react-table';
+
+
+import 'react-table/react-table.css';
+var dateFormat = require('dateformat');
 
 const Web3 = require('web3');
 const infura = `https://ropsten.infura.io/v3/cc89e42528e441afb25d84e1499632ba`;
@@ -13,19 +18,35 @@ class Blockchain extends Component{
     constructor(){
         super();
         this.state = {
+            details: false,
             users: [],
             balance : 0,
+            chart: {},
             history : {},
-            chart: {}
+            history_tab : [],
+            rank : {
+                type : {value:"Balance", label : "Balance"},
+                me : 0,
+                first : "",
+                second : "",
+                third : ""
+            }
         };
     }
 
-    async componentDidMount() {
+    async UNSAFE_componentWillMount() {
+        this.setState({users: await this.get_users()});
+        var rank = await this.rank();
+        this.setState({rank : {
+            first : rank[1].name + " : " + rank[1].balance + " AST",
+            second : rank[2].name + " : " + rank[2].balance + " AST",
+            third : rank[3].name + " : " + rank[3].balance + " AST"
+        }})
         web3.eth.defaultAccount = await this.get_user_adress();
         this.setState({balance: await this.get_user_balance(web3.eth.defaultAccount)});
-        this.setState({users: await this.get_users()});
         this.setState({history: await this.get_line_history()});
         this.setState({chart: await this.get_chart_history()});
+        this.setState({history_tab: await this.get_history_tab()})
     }
 
     get_user_balance = async(address) =>{
@@ -55,16 +76,16 @@ class Blockchain extends Component{
     get_all_users = async() =>{
         return await new Promise(function(resolve, reject){
             contract.methods.getMembersAndNameAndBalance().call((err, res) =>{
-                    if(err) return reject(err);
+                if(err) return reject(err);
 
-                    var users = [];
-                    for(var i = 0; i < res[0].length; i++){
-                        users[i] = {};
-                        users[i].address = res[0][i];
-                        users[i].name = (web3.utils.toAscii(res[1][i])).split("\u0000")[0];
-                        users[i].balance = (res[2][i])*Math.pow(10,-18);
-                    }
-                    resolve(users);
+                var users = [];
+                for(var i = 0; i < res[0].length; i++){
+                    users[i] = {};
+                    users[i].address = res[0][i];
+                    users[i].name = (web3.utils.toAscii(res[1][i])).split("\u0000")[0];
+                    users[i].balance = Math.round((res[2][i])*Math.pow(10,-18));
+                }
+                resolve(users);
             })
         })
     }
@@ -95,7 +116,7 @@ class Blockchain extends Component{
                                 history[j].from = res[i].from;
                                 history[j].to = res[i].to;
                                 history[j].amount = Math.round(res[i].value*Math.pow(10,-18));
-                                history[j].message = messages[3][j];
+                                history[j].message = messages[3][i];
                           }
                           resolve(history);
                     })
@@ -103,6 +124,22 @@ class Blockchain extends Component{
               .catch(e=>{
                   reject(e)
               })
+        })
+    }
+
+    get_history_tab = async()=>{
+        return new Promise((resolve, reject)=>{
+            this.get_history().then(async (value)=>{
+                var hist =[];
+                for(var i = value.length-1, j = 0; i>=0; i--, j++){
+                    hist[j] = {};
+                    hist[j].date = dateFormat(value[j].date, "mmmm dd yyyy");
+                    hist[j].amount = value[j].amount;
+                    hist[j].message = value[j].message;
+                    hist[j].to =  (value[j].to.toUpperCase() === web3.eth.defaultAccount.toUpperCase()) ? await this.get_user_name(value[j].from) : await this.get_user_name(value[j].to);
+                }
+                resolve(hist)
+            })
         })
     }
 
@@ -129,13 +166,13 @@ class Blockchain extends Component{
                             fill: false,
                             label: "Sent",
                             data: [],
-                            borderColor: "#EE6765"
+                            borderColor: "#FF5C5F"
                         },
                         {
                             fill: false,
                             label: "Received",
                             data: [],
-                            borderColor: "#053C5A"
+                            borderColor: "#023B59"
                         }
                     ]
                 };
@@ -162,7 +199,7 @@ class Blockchain extends Component{
 
     get_colors(size){
         var tab = [];
-        var colors = ["#EE6765","#053C5A", "#F4F6F7"];
+        var colors = ["#023B59","#035883", "#FF5C5F", "#FD8B7F", "#908476", "#EAE8DA"];
         for(var i = 0; i < size-1; i++){
             tab[i] = colors[i%colors.length]
         }
@@ -184,7 +221,7 @@ class Blockchain extends Component{
                     if(value[i].to.toUpperCase() !== "0x0000000000000000000000000000000000000000".toUpperCase() && 
                         value[i].from.toUpperCase() !== "0x0000000000000000000000000000000000000000".toUpperCase()&&
                         value[i].amount!== 0){
-                        var user_name = await this.get_user_name(value[i].to);
+                        var user_name = await this.get_user_name(value[i].from);
                         if(!chart.labels.includes(user_name)){
                             chart.labels.push(user_name);
                             chart.datasets[0].data.push(value[i].amount);
@@ -235,6 +272,86 @@ class Blockchain extends Component{
         await this.transfer_tokens( address.value, amount, message)
     }
 
+    changeRanking = selected =>{
+        this.setState({rank: { type: selected}})
+        this.rank();
+    }
+    
+    get_all_transactions = async() =>{
+        return await new Promise(function(resolve, reject){
+            contract.methods.getAllInfoTransaction().call((err, res) =>{
+                if(err) return reject(err);
+                var trans = [];
+                for(var i = 0; i < res[0].length; i++){
+                        trans[i] = {};
+                        trans[i].nbrTransactions = res[1][i];
+                        trans[i].received = Math.round((res[2][i])*Math.pow(10,-18));
+                        trans[i].sent = Math.round((res[3][i])*Math.pow(10,-18));
+                        trans[i].name = (web3.utils.toAscii(res[5][i])).split("\u0000")[0];
+                }
+                resolve(trans);
+            })
+        })
+    }
+
+    dynamicSort(property) {
+        var sortOrder = -1;
+        if(property[0] === "-") {
+            sortOrder = -1;
+            property = property.substr(1);
+        }
+        return function (a,b) {
+            /* next line works with strings and numbers, 
+             * and you may want to customize it to your needs
+             */
+            var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+            return result * sortOrder;
+        }
+    }
+
+    async rank(){
+        var users = await this.get_all_users();
+        var resultAll = await this.get_all_transactions();
+        switch(this.state.rank.type.value){
+            case "Transactions":
+                resultAll.sort(this.dynamicSort('nbrTransactions'));
+                this.setState({rank : {
+                    first : resultAll[1].name + " : " + resultAll[1].nbrTransactions + " transaction(s)",
+                    second : resultAll[2].name + " : " + resultAll[2].nbrTransactions + " transaction(s)",
+                    third : resultAll[3].name + " : " + resultAll[3].nbrTransactions + " transaction(s)"
+                }})
+                break;
+            
+            case "Sent":
+                resultAll.sort(this.dynamicSort('sent'));
+                this.setState({rank : {
+                    first : resultAll[1].name + " : " + resultAll[1].sent + " AST sent",
+                    second : resultAll[2].name + " : " + resultAll[2].sent + " AST sent",
+                    third : resultAll[3].name + " : " + resultAll[3].sent + " AST sent"
+                }})
+                break;
+
+            case "Received":
+                resultAll.sort(this.dynamicSort('received'));
+                this.setState({rank : {
+                    first : resultAll[1].name + " : " + resultAll[1].received + " AST received",
+                    second : resultAll[2].name + " : " + resultAll[2].received + " AST received",
+                    third : resultAll[3].name + " : " + resultAll[3].received + " AST received"
+                }})
+                break;
+            
+            default:
+                users.sort(this.dynamicSort('balance'));
+                this.setState({rank : {
+                    first : users[1].name + " : " + users[1].balance + " AST",
+                    second : users[2].name + " : " + users[2].balance + " AST",
+                    third : users[3].name + " : " + users[3].balance + " AST"
+                }})
+                break;
+        }
+        return users;
+    }
+
     render(){
         return (
             <div>
@@ -263,19 +380,47 @@ class Blockchain extends Component{
                         <div className="card shadow mb-4">
                             <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                 <h6 className="m-0 font-weight-bold text-primary">History</h6>
-                                { false &&
                                 <div className="dropdown no-arrow">
                                     <div className="dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i className="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                     </div>
                                     <div className="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                                         <div className="dropdown-header">History:</div>
-                                        <div className="dropdown-item" href="">Details</div>
+                                        <div className="dropdown-item" onClick = {() =>{this.setState({details : !this.state.details})}}>Details</div>
                                     </div>
-                                </div>}
+                                </div>
                             </div>
                             <div className="card-body">
-                                <Line data={this.state.history} options={{legend: {display: false}}}/>
+                                {!this.state.details && <Line data={this.state.history} options={{legend: {display: false}}}/>}
+                                {this.state.details && 
+                                    <div >
+                                        {false &&<table className="table table-bordered" id="dataTable" width="100%" cellSpacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>From/To</th>
+                                                    <th>Amount</th>
+                                                    <th>Desription</th>
+                                                </tr>
+                                            </thead>
+
+                                        </table>}
+                                        <ReactTable defaultPageSize={5} data={this.state.history_tab} columns={[{
+                                            Header:'Date',
+                                            accessor: "date"
+                                        },{
+                                            Header:'From/To',
+                                            accessor: "to"
+                                        },{
+                                            Header:'Amount',
+                                            accessor: 'amount'
+                                        },{
+                                            Header:'Description',
+                                            accessor:'message'
+                                        }]
+                                        }/>
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>
@@ -312,6 +457,34 @@ class Blockchain extends Component{
                                     </div>
                                     <button className="btn btn-primary btn-user btn-block">Send</button>
                                 </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-xl-6 col-lg-6">
+                        <div className="card shadow mb-4">
+                            <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 className="m-0 font-weight-bold text-primary">Ranking</h6>
+                            </div>
+                            <div className="card-body">
+                                <div className="form-group">
+                                    <Select name="ranking" value={this.state.rank.type} onChange={this.changeRanking} options={[
+                                        {value:"Balance", label : "Balance"},
+                                        {value:"Transactions", label : "Number of transactions"},
+                                        {value:"Sent", label : "Number of tokens sent"},
+                                        {value:"Received", label:"Number of tokens received"}
+                                    ]}/>
+                                </div>
+                                <div className="form-group">
+                                    <p type="text" className="form-control" name="message" style={{borderRadius : 10 + 'rem'}}>
+                                        # 1 : {this.state.rank.first}
+                                    </p>
+                                    <p type="text" className="form-control form-control-user" name="message" style={{borderRadius : 10 + 'rem'}} >
+                                        # 2 : {this.state.rank.second}
+                                    </p>
+                                    <p type="text" className="form-control form-control-user" name="message" style={{borderRadius : 10 + 'rem'}} >
+                                        # 3 : {this.state.rank.third}
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>

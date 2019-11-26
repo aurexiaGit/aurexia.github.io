@@ -3,6 +3,7 @@ import Blockchain from './Blockchain';
 import Topbar from './Topbar';
 import Nav from './Nav';
 import Home from './Home';
+import Users from './Users'
 import {
   BrowserRouter as Router,
   Switch,
@@ -155,39 +156,46 @@ class App extends Component {
                   authButtonMethod={(this.state && this.state.isAuthenticated) ? this.logout.bind(this) : this.login.bind(this)}
                   user={(this.state)? this.state.user: null}>
                 </Topbar>
-                </Online>
-                <div className="container-fluid">
-                  {this.state && this.state.isAuthenticated && 
-                  <Router>
-                    <Switch>
-                      {this.state.user.name === "Administrator" &&
-                      <Route path="/new/astAdmin">
-                        <Blockchain 
-                          isAuthenticated={this.state.isAuthenticated}
-                          user={this.state.user}
-                          admin={true}/>
-                      </Route>}
-                      <Route path="/new/ast">
-                        <Blockchain 
-                          isAuthenticated={this.state.isAuthenticated}
-                          user={this.state.user}
-                          admin={false}/>
-                      </Route>
-                      <Route path="/">
-                        <Home
-                          isAuthenticated={this.state.isAuthenticated}
-                          user={this.state.user}
-                        />
-                      </Route>
-                    </Switch>
-                  </Router>}
-                  { (!this.state || !this.state.isAuthenticated) &&
-                    <Home
-                      isAuthenticated={(this.state)? this.state.isAuthenticated : false}
-                      user={(this.state)? this.state.user: null}
-                    />
-                  }
-                </div>
+              </Online>
+              <div className="container-fluid">
+                {this.state && this.state.isAuthenticated && 
+                <Router>
+                  <Switch>
+                    <Route path="/new/ast">
+                      <Blockchain 
+                        isAuthenticated={this.state.isAuthenticated}
+                        user={this.state.user}
+                        admin={false}/>
+                    </Route>
+                    {this.state.user.name === "Administrator" &&
+                    <Route path="/new/astAdmin">
+                      <Blockchain 
+                        isAuthenticated={this.state.isAuthenticated}
+                        user={this.state.user}
+                        admin={true}/>
+                    </Route>}
+                    {this.state.user.name === "Administrator" &&
+                    <Route path="/new/astUsersAdmin">
+                      <Users 
+                        isAuthenticated={this.state.isAuthenticated}
+                        user={this.state.user}
+                        admin={true}/>
+                    </Route>}
+                    <Route path="/">
+                      <Home
+                        isAuthenticated={this.state.isAuthenticated}
+                        user={this.state.user}
+                      />
+                    </Route>
+                  </Switch>
+                </Router>}
+                { (!this.state || !this.state.isAuthenticated) &&
+                  <Home
+                    isAuthenticated={(this.state)? this.state.isAuthenticated : false}
+                    user={(this.state)? this.state.user: null}
+                  />
+                }
+              </div>
             </div>
             
             <footer className="sticky-footer bg-white">
