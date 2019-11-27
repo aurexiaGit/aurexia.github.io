@@ -1,21 +1,11 @@
 {
-  "short_name": "Aurexia's App",
+  "short_name": "AST",
   "name": "Aurexia Social Token's App",
   "icons": [
     {
-      "src": "img/aurexia_logo.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
+      "src": "img/Logo_AST.ico",
+      "sizes": "256x255",
       "type": "image/x-icon"
-    },
-    {
-      "src": "img/Finlab.png",
-      "type": "image/png",
-      "sizes": "1920x1080"
-    },
-    {
-      "src":"img/logo AST.png",
-      "type":"image/png",
-      "sizes": "147x147"
     },
     {
       "src":"img/Logo_AST.png",
