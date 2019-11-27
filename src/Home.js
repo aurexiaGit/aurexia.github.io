@@ -19,17 +19,17 @@ class Home extends Component{
                             <div className="card card-signin">
                                 <div className="card-body text-center">
                                     <div>
-                                        Welcome {this.props.isAuthenticated && <strong>{this.props.user.displayName},</strong>} to the Aurexia Finlab's Application
+                                        Welcome {this.props.isAuthenticated && <strong>{this.props.user.displayName},</strong>}
                                     </div>
                                     <Online>
                                         { !this.props.isAuthenticated &&
                                         <div>
-                                            Please, sign in with your microsoft account to see the Finlab's functionalities
+                                            Please, sign in with your microsoft account to access your AST wallet
                                         </div>}
                                     </Online>
                                     <Offline>You need to have an internet connection to see the website</Offline>
                                     <div>
-                                        To get more information about the Finlab, contact <a href="mailto:soilhat.mohamed@aurexia.com">Soilhat MOHAMED</a>
+                                        To get more information about AST, contact <a href="mailto:ast@aurexia.com">AST</a>
                                     </div>
                                 </div>
                             </div>
