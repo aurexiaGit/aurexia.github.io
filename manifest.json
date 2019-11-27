@@ -1,6 +1,6 @@
 {
   "short_name": "Aurexia's App",
-  "name": "Aurexia's Finlab App",
+  "name": "Aurexia Social Token's App",
   "icons": [
     {
       "src": "img/aurexia_logo.ico",
@@ -23,7 +23,7 @@
       "sizes": "1201x1198"
     }
   ],
-  "start_url": ".",
+  "start_url": "https://aurexiagit.github.io/new/",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"

@@ -11,7 +11,12 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 :root {
-  --blue: var(--primary);
+  --Aurexia-blue1:#023B59;
+  --Aurexia-blue2: #035883;
+  --Aurexia-red: #ff5c5f;
+  --Aurexia-corail: #fd8b7f;
+  --Aurexia-grey1 : #908476;
+  --Aurexia-grey2: #eae8da;
   --indigo: #6610f2;
   --purple: #6f42c1;
   --pink: #e83e8c;
@@ -24,7 +29,7 @@
   --white: #fff;
   --gray: #858796;
   --gray-dark: #5a5c69;
-  --primary: #053C5A;
+  --primary: #023B59;
   --secondary: #858796;
   --success: #1cc88a;
   --info: #36b9cc;
@@ -9367,7 +9372,7 @@ button.bg-dark:focus {
 }
 
 a.text-primary:hover, a.text-primary:focus {
-  color: #224abe !important;
+  color: var(--Aurexia-blue2)!important;
 }
 
 .text-secondary {
@@ -9668,7 +9673,7 @@ a:focus {
 
 .bg-gradient-primary {
   background-color: var(--primary);
-  background-image: linear-gradient(180deg, var(--primary) 10%, #224abe 100%);
+  background-image: linear-gradient(180deg, var(--primary) 10%, var(--Aurexia-blue2)100%);
   background-size: cover;
 }
 
