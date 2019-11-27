@@ -14,6 +14,7 @@ import config from './Config';
 import { getUserDetails, getPhoto } from './GraphService';
 import { UserAgentApplication } from 'msal';
 import { Online } from "react-detect-offline";
+import {isMobile} from 'react-device-detect';
 
 const Administrators = ["Soilhat MOHAMED","Amine BADRY", "Samir FEDDI"];
 
@@ -34,7 +35,7 @@ class App extends Component {
     var user = this.userAgentApplication.getAccount();
   
     this.state = {
-      isOpen : false,
+      isOpen : (isMobile)? false : true,
       toggle : this.toggle.bind(this),
       isAuthenticated: (user !== null),
       user: {},
@@ -181,7 +182,7 @@ class App extends Component {
                         user={this.state.user}
                         admin={true}/>
                     </Route>}
-                    <Route path="/">
+                    <Route path="/new/">
                       <Home
                         isAuthenticated={this.state.isAuthenticated}
                         user={this.state.user}
